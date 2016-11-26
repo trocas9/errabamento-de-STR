@@ -171,6 +171,38 @@ public void cylinder_A_goto(int desired_pos)  //0, 1
     }    
   }
 
+public int readSendor1 (){
+    int x = hard.safe_read_port(1);
+    boolean x1 = hard.getBitValue(x, 6);
+    if(x1)
+	return 1;
+    else
+        return 0;
+     
+}
+
+public int readSendor2(){
+    int x = hard.safe_read_port(1);
+    boolean x1 = hard.getBitValue(x, 5);
+    if(x1)
+	return 1;
+    else
+        return 0;
+     
+}
+
+public int read_Cylinder_B_sensor(){
+    int x = hard.safe_read_port(0);
+    boolean x1 = hard.getBitValue(x, 0);
+    
+    if(x1)
+	return 1;
+    else
+        return 0;
+     
+} 
+
+
 public void cylinder_B_goto(int desired_pos){
 
     //move only if it is callibrated

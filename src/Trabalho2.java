@@ -29,8 +29,10 @@ public class Trabalho2 {
 
             Mechanism mech = new Mechanism(h);
 
-            Cylinder_A cylA = new Cylinder_A("thread A",mech );                              
+            Cylinder_A cylA = new Cylinder_A("thread A",mech );
+            IdentifyPart part = new IdentifyPart("thread Part", mech);
             cylA.start();
+            part.run();
 
             BlockingQueue mbxCylA = cylA.getMailbox();
 
@@ -40,9 +42,9 @@ public class Trabalho2 {
             mbxCylA.put(1);  // goto(1);
             mbxCylA.put(0);  // goto(0);
 
-            System.out.println("Antes");
+            
             System.in.read();
-            System.out.println("Depois");
+                        
 
             mech.conveyorStop();
 
@@ -51,6 +53,7 @@ public class Trabalho2 {
             //System.out.printf("part identified is %d", x);
 
             //press enter to stop them
+            part.stopIt();
             cylA.stopIt();
             System.out.println("Mesmo Mesmo Depois");
         } catch (InterruptedException | IOException ex) {
