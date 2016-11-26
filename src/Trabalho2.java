@@ -29,26 +29,26 @@ public class Trabalho2 {
 
             Mechanism mech = new Mechanism(h);
 
-            Cylinder_A cylA = new Cylinder_A("thread A",mech );
-            IdentifyPart part = new IdentifyPart("thread Part", mech);
-            cylA.start();
-            part.start();
+            //Cylinder_A cylA = new Cylinder_A("thread A",mech );
+            Selector sel = new Selector( mech);
+            //IdentifyPart part = new IdentifyPart("thread Part", mech);
+            //cylA.start();
+            sel.start();
+            //part.start();
 
-            BlockingQueue mbxCylA = cylA.getMailbox();
-            BlockingQueue mbxPart = part.getMailbox();
+            //BlockingQueue mbxCylA = cylA.getMailbox();
+            //BlockingQueue mbxPart = part.getMailbox();
 
 
             mech.conveyorMove();
 
-            mbxCylA.put(1);  // goto(1);
-            mbxCylA.put(0);  // goto(0);
+            //mbxCylA.put(1);  // goto(1);
+            //mbxCylA.put(0);  // goto(0);
+            
+            
             
             System.in.read();
-            System.out.printf("Bora nessa\n");
-            System.out.printf("Peça: "+mbxPart.take()+"\n");
-            System.in.read();
-                        
-
+            
             mech.conveyorStop();
 
             System.out.println("Mesmo Depois");
@@ -56,10 +56,10 @@ public class Trabalho2 {
             //System.out.printf("part identified is %d", x);
 
             //press enter to stop them
-            part.stopIt();
-            cylA.stopIt();
+           // part.stopIt();
+            //cylA.stopIt();
             System.out.println("Mesmo Mesmo Depois");
-        } catch (InterruptedException | IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(Trabalho2.class.getName()).log(Level.SEVERE, null, ex);
         }
       System.out.println("Fare Well");

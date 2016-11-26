@@ -12,48 +12,49 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Miguel-Loureiro
+ * @author Cavaco
  */
+public class Cylinder_C extends Conveyor_Cylinder{
+ 
 
-public class Cylinder_B extends Conveyor_Cylinder{
-
-    public Cylinder_B(String _name, Mechanism ___mech, Cylinder[] slaves){
-        super(_name, ___mech,slaves);
+  
+    public Cylinder_C(String _name, Mechanism ___mech,Cylinder[] slaves){
+        super(_name,___mech,slaves);
         state[0]= true;
         for(int i=1;i<mechanism.PKG_NUMBER;i++){
             state[i]=false;
         }
     }
-    @Override
     public void run(){
         while(keepWorking){
             try {
                 Integer d = (Integer) mailbox.take();
-                while(mechanism.read_Cylinder_B_sensor()==0);
-                if(d == 1){
+                while(mechanism.read_Cylinder_C_sensor()==0);
+                if(d.intValue()== 1){
                     for(int i=0;i<slave.length;i++){
                         slave[i].stopIt();
                     }
-                    mechanism.cylinder_A_stop();
                     mechanism.conveyorStop();
-                    mechanism.cylinder_B_goto(1);  
-                    mechanism.cylinder_B_goto(0);
+                    mechanism.cylinder_C_goto(1);  
+                    mechanism.cylinder_C_goto(0);
                     mechanism.conveyorMove();
                     for(int i=0;i<slave.length;i++){
                         slave[i].resumeCyl();
                     }
                 }
+                else
+                    mechanism.turnOnLight();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Cylinder_A.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                this.sleep(100);
+                this.sleep(110);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        
-    }
+
+    }    
     public boolean can_recieve_part(int i){
         if(state[i-1]){
             return true;
@@ -63,21 +64,21 @@ public class Cylinder_B extends Conveyor_Cylinder{
 
     @Override
     public void get_piece() {
-
+        //TODO
     }
 
     public void update_part(int i){
         if(i==1){
-            if(state[2]){
+            if(state[3]){
                 this.increment_sequence();
-                state[2]=false;
+                state[3]=false;
             }
             else{
-                state[1]= false;
-                state[2]=true;
+                state[1]=false;
+                state[3]=true;
             }
         }
-        if(i==2)
+        if(i==3)
             state[1]= true;
     }
 
@@ -86,6 +87,3 @@ public class Cylinder_B extends Conveyor_Cylinder{
         //todo
     }
 }
-  
-
-

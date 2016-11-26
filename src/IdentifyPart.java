@@ -21,6 +21,7 @@ public class IdentifyPart extends Thread{
     Mechanism mechanism;
     boolean keepWorking = true;
     BlockingQueue mailbox = new ArrayBlockingQueue(5);
+    private final java.util.concurrent.Semaphore sem = new java.util.concurrent.Semaphore(1);
     
     public void stopIt(){
         keepWorking = false;
@@ -59,6 +60,7 @@ public class IdentifyPart extends Thread{
                 soma_act++;
                 //System.out.printf("Soma2: "+soma_act+"\n");
             }
+            
             xB_act = mechanism.read_Cylinder_B_sensor();
             if(xB_act == 1 && xB_prev == 0){
                 //System.out.printf("Soma: "+soma_act+"\n");
