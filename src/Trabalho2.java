@@ -32,17 +32,20 @@ public class Trabalho2 {
             Cylinder_A cylA = new Cylinder_A("thread A",mech );
             IdentifyPart part = new IdentifyPart("thread Part", mech);
             cylA.start();
-            part.run();
+            part.start();
 
             BlockingQueue mbxCylA = cylA.getMailbox();
+            BlockingQueue mbxPart = part.getMailbox();
 
 
             mech.conveyorMove();
 
             mbxCylA.put(1);  // goto(1);
             mbxCylA.put(0);  // goto(0);
-
             
+            System.in.read();
+            System.out.printf("Bora nessa\n");
+            System.out.printf("Peça: "+mbxPart.take()+"\n");
             System.in.read();
                         
 
@@ -59,7 +62,6 @@ public class Trabalho2 {
         } catch (InterruptedException | IOException ex) {
             Logger.getLogger(Trabalho2.class.getName()).log(Level.SEVERE, null, ex);
         }
-    //mech.cylind_A.goto(1);
       System.out.println("Fare Well");
     }    
 }
