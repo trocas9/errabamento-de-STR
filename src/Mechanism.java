@@ -73,6 +73,11 @@ public boolean cylind_B_isAtPosition (int pos) {
      return (pos==cylind_B_getPosition());  
 }
 
+public boolean ConveyorIsMoving(){
+    int x = hard.safe_read_port(2);
+    return hard.getBitValue(x, 2);
+}
+
 public boolean cylind_C_isAtPosition (int pos) { 
      return (pos==cylind_C_getPosition());  
 }
@@ -284,8 +289,17 @@ public void cylinder_C_goto(int desired_pos){
     }
     
     public void turnOnLight(){
-       // int x =  
+        int x = hard.safe_read_port(2);
+        x = hard.setBitValue(x, 7, true);
+        hard.safe_write_port(2, x);       
     }
+    
+    public void turnOFFLight(){
+        int x = hard.safe_read_port(2);
+        x = hard.setBitValue(x, 7, false);
+        hard.safe_write_port(2, x);         
+    }
+    
     
     
 
